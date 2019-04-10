@@ -209,26 +209,6 @@ int main()
 }
 
 
-// This function decides which way to turn during the learning phase of
-// maze solving.  It uses the variables found_left, found_straight, and
-// found_right, which indicate whether there is an exit in each of the
-// three directions, applying the "left hand on the wall" strategy.
-char select_turn(unsigned char found_left, unsigned char found_straight, unsigned char found_right)
-{
-	// Make a decision about how to turn.  The following code
-	// implements a left-hand-on-the-wall strategy, where we always
-	// turn as far to the left as possible.
-	if(found_left)
-	return 'L';
-	else if(found_straight)
-	return 'S';
-	else if(found_right)
-	return 'R';
-	else
-	return 'B';
-}
-
-
 // This function is called once, from main.c.
 void maze_solve()
 {
@@ -261,8 +241,7 @@ void maze_solve()
 			found_left = 1;
 			print("L ");
 		}
-			
-			
+				
 		if(sensors[4] > 100) {
 			found_right = 1;
 			print("R ");
@@ -309,35 +288,25 @@ void maze_solve()
 		// display_path();
 	}
 	// Solved the maze!
+}
 
-	// Now enter an infinite loop - we can re-run the maze as many
-	// times as we want to.
-	while(1)
-	{
-		// Beep to show that we finished the maze.
-		set_motors(0,0);
-		play(">>a32");
-
-		// Wait for the user to press a button, while displaying
-		// the solution.
-		while(!button_is_pressed(BUTTON_B))
-		{
-			if(get_ms() % 2000 < 1000)
-			{
-				clear();
-				print("Solved!");
-				lcd_goto_xy(0,1);
-				print("Press B");
-			}
-			else
-			//display_path();
-			delay_ms(30);
-		}
-		while(button_is_pressed(BUTTON_B));
-		
-		delay_ms(1000);
-
-	}
+// This function decides which way to turn during the learning phase of
+// maze solving.  It uses the variables found_left, found_straight, and
+// found_right, which indicate whether there is an exit in each of the
+// three directions, applying the "left hand on the wall" strategy.
+char select_turn(unsigned char found_left, unsigned char found_straight, unsigned char found_right)
+{
+	// Make a decision about how to turn.  The following code
+	// implements a left-hand-on-the-wall strategy, where we always
+	// turn as far to the left as possible.
+	if(found_left)
+	return 'L';
+	else if(found_straight)
+	return 'S';
+	else if(found_right)
+	return 'R';
+	else
+	return 'B';
 }
 
 // Turns according to the parameter dir, which should be 'L', 'R', 'S'
@@ -412,23 +381,5 @@ void follow_segment()
 		set_motors(max+power_difference,max);
 		else
 		set_motors(max,max-power_difference);
-
-		// We use the inner three sensors (1, 2, and 3) for
-		// determining whether there is a line straight ahead, and the
-		// sensors 0 and 4 for detecting lines going to the left and
-		// right.
-
-		if(sensors[1] < 100 && sensors[2] < 100 && sensors[3] < 100)
-		{
-			// There is no line visible ahead, and we didn't see any
-			// intersection.  Must be a dead end.
-			return;
-		}
-		else if(sensors[0] > 200 || sensors[4] > 200)
-		{
-			// Found an intersection.
-			return;
-		}
-
 	}
 }
