@@ -219,11 +219,12 @@ void loop()
     robot.readLine(sensors, IR_EMITTERS_ON);
     if (sensors[1] > 200 || sensors[2] > 200 || sensors[3] > 200)
       found_straight = 1;
-    showIntersection(found_left, found_straight, found_right);
-    makeTurn(found_left, found_straight, found_right);
     if(found_straight == 0){
       return;
     }
+    showIntersection(found_left, found_straight, found_right);
+    makeTurn(found_left, found_straight, found_right);
+
   }
 }
 
