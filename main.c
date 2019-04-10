@@ -189,105 +189,70 @@ void initialize()
 	while(is_playing());
 }
 
-// This is the main function, where the code starts.  All C programs
-// must have a main() function defined somewhere.
-int main()
+void follow_segment()
 {
-	// set up the 3pi
-	initialize();
+	int last_proportional = 0;
+	long integral=0;
 
-	// Call our maze solving routine.
-	maze_solve();
-
-	// This part of the code is never reached.  A robot should
-	// never reach the end of its program, or unpredictable behavior
-	// will result as random code starts getting executed.  If you
-	// really want to stop all actions at some point, set your motors
-	// to 0,0 and run the following command to loop forever:
-
-	while(1);
-}
-
-
-// This function is called once, from main.c.
-void maze_solve()
-{
-	// Loop until we have solved the maze.
 	while(1)
 	{
-		// FIRST MAIN LOOP BODY
-		follow_segment();
+		// Normally, we will be following a line.  The code below is
+		// similar to the 3pi-linefollower-pid example, but the maximum
+		// speed is turned down to 60 for reliability.
 
-		// Drive straight a bit.  This helps us in case we entered the
-		// intersection at an angle.
-		// Note that we are slowing down - this prevents the robot
-		// from tipping forward too much.
-		set_motors(50,50);
-		delay_ms(50);
-
-		// These variables record whether the robot has seen a line to the
-		// left, straight ahead, and right, while examining the current
-		// intersection.
-		unsigned char found_left=0;
-		unsigned char found_straight=0;
-		unsigned char found_right=0;
-
+		// Get the position of the line.
 		unsigned int sensors[5];
-		clear();
-		read_line(sensors,IR_EMITTERS_ON);
-
-		// Check for left and right exits.
-		if(sensors[0] > 100) {
-			found_left = 1;
-			print("L ");
-		}
-				
-		if(sensors[4] > 100) {
-			found_right = 1;
-			print("R ");
-		}
-			
-		// Drive straight a bit more - this is enough to line up our
-		// wheels with the intersection.
-		set_motors(40,40);
-		delay_ms(200);
-			
-
-		// Check for a straight exit.
-		read_line(sensors,IR_EMITTERS_ON);
 		unsigned int position = read_line(sensors,IR_EMITTERS_ON);
-		if(position >= 1000 && position <= 3000)
-		{
-			found_straight = 1;
-			print("S ");
-		}
-	
 
-		// Check for the ending spot.
-		// If all three middle sensors are on dark black, we have
-		// solved the maze.
-		if(sensors[1] > 600 && sensors[2] > 600 && sensors[3] > 600 && sensors[4] > 600 && sensors[0] > 600)
-		break;
+		// The "proportional" term should be 0 when we are on the line.
+		int proportional = ((int)position) - 2000;
 
-		// Intersection identification is complete.
-		// If the maze has been solved, we can follow the existing
-		// path.  Otherwise, we need to learn the solution.
-		unsigned char dir = select_turn(found_left, found_straight, found_right);
+		// Compute the derivative (change) and integral (sum) of the
+		// position.
+		int derivative = proportional - last_proportional;
+		integral += proportional;
+
+		// Remember the last position.
+		last_proportional = proportional;
+
+		// Compute the difference between the two motor power settings,
+		// m1 - m2.  If this is a positive number the robot will turn
+		// to the left.  If it is a negative number, the robot will
+		// turn to the right, and the magnitude of the number determines
+		// the sharpness of the turn.
+		int power_difference = proportional/20 + integral/10000 + derivative*3/2;
+
+		// Compute the actual motor settings.  We never set either motor
+		// to a negative value.
+		const int max = 60; // the maximum speed
+		if(power_difference > max)
+		power_difference = max;
+		if(power_difference < -max)
+		power_difference = -max;
 		
-		set_motors(0,0);
-		delay_ms(800);
-		set_motors(40,40);
-		// Make the turn indicated by the path.
-		turn(dir);
+		if(power_difference < 0)
+		set_motors(max+power_difference,max);
+		else
+		set_motors(max,max-power_difference);
+		
+				// We use the inner three sensors (1, 2, and 3) for
+				// determining whether there is a line straight ahead, and the
+				// sensors 0 and 4 for detecting lines going to the left and
+				// right.
 
-		// Store the intersection in the path variable.
-		path[path_length] = dir;
-		path_length ++;
+				if(sensors[1] < 100 && sensors[2] < 100 && sensors[3] < 100)
+				{
+					// There is no line visible ahead, and we didn't see any
+					// intersection.  Must be a dead end.
+					return;
+				}
+				else if(sensors[0] > 200 || sensors[4] > 200)
+				{
+					// Found an intersection.
+					return;
+				}
 
-		// Display the path on the LCD.
-		// display_path();
 	}
-	// Solved the maze!
 }
 
 // This function decides which way to turn during the learning phase of
@@ -336,50 +301,109 @@ void turn(char dir)
 	}
 }
 
-void follow_segment()
+// This function is called once, from main.c.
+void maze_solve()
 {
-	int last_proportional = 0;
-	long integral=0;
-
+	// Loop until we have solved the maze.
 	while(1)
 	{
-		// Normally, we will be following a line.  The code below is
-		// similar to the 3pi-linefollower-pid example, but the maximum
-		// speed is turned down to 60 for reliability.
+		// FIRST MAIN LOOP BODY
+		follow_segment();
 
-		// Get the position of the line.
+		// Drive straight a bit.  This helps us in case we entered the
+		// intersection at an angle.
+		// Note that we are slowing down - this prevents the robot
+		// from tipping forward too much.
+		set_motors(50,50);
+		delay_ms(50);
+
+		// These variables record whether the robot has seen a line to the
+		// left, straight ahead, and right, while examining the current
+		// intersection.
+		unsigned char found_left=0;
+		unsigned char found_straight=0;
+		unsigned char found_right=0;
+
 		unsigned int sensors[5];
+		clear();
+		read_line(sensors,IR_EMITTERS_ON);
+
+		// Check for left and right exits.
+		if(sensors[0] > 100) {
+			found_left = 1;
+			print("L ");
+		}
+				
+		if(sensors[4] > 100) {
+			found_right = 1;
+			print("R ");
+		}
+			
+		// Drive straight a bit more - this is enough to line up our
+		// wheels with the intersection.
+		set_motors(40,40);
+		delay_ms(200);
+			
+
+		// Check for a straight exit.
 		unsigned int position = read_line(sensors,IR_EMITTERS_ON);
+		if(position >= 1000 && position <= 3000)
+		{
+			found_straight = 1;
+			print("S ");
+		}
+	
 
-		// The "proportional" term should be 0 when we are on the line.
-		int proportional = ((int)position) - 2000;
-
-		// Compute the derivative (change) and integral (sum) of the
-		// position.
-		int derivative = proportional - last_proportional;
-		integral += proportional;
-
-		// Remember the last position.
-		last_proportional = proportional;
-
-		// Compute the difference between the two motor power settings,
-		// m1 - m2.  If this is a positive number the robot will turn
-		// to the left.  If it is a negative number, the robot will
-		// turn to the right, and the magnitude of the number determines
-		// the sharpness of the turn.
-		int power_difference = proportional/20 + integral/10000 + derivative*3/2;
-
-		// Compute the actual motor settings.  We never set either motor
-		// to a negative value.
-		const int max = 60; // the maximum speed
-		if(power_difference > max)
-		power_difference = max;
-		if(power_difference < -max)
-		power_difference = -max;
+		// Check for the ending spot.
+		// If all three middle sensors are on dark black, we have
+		// solved the maze.
+        if (sensors[1] > 600 && sensors[2] > 600 && sensors[3] > 600 && sensors[4] > 600 && sensors[0] > 600) {
+			break;
+		}
 		
-		if(power_difference < 0)
-		set_motors(max+power_difference,max);
-		else
-		set_motors(max,max-power_difference);
+
+		// Intersection identification is complete.
+		// If the maze has been solved, we can follow the existing
+		// path.  Otherwise, we need to learn the solution.
+		unsigned char dir = select_turn(found_left, found_straight, found_right);
+		
+		set_motors(0,0);
+		delay_ms(800);
+		set_motors(40,40);
+		// Make the turn indicated by the path.
+		turn(dir);
+
+		// Store the intersection in the path variable.
+		path[path_length] = dir;
+		path_length ++;
+
+		// Display the path on the LCD.
+		// display_path();
 	}
+	// Solved the maze!
+
+	while (1) {
+		// Beep to show that we finished the maze.
+		set_motors(0, 0);
+		play(">>a32");
+	}
+}
+
+// This is the main function, where the code starts.  All C programs
+// must have a main() function defined somewhere.
+int main()
+{
+	// set up the 3pi
+	initialize();
+
+	// Call our maze solving routine.
+	maze_solve();
+
+	// This part of the code is never reached.  A robot should
+	// never reach the end of its program, or unpredictable behavior
+	// will result as random code starts getting executed.  If you
+	// really want to stop all actions at some point, set your motors
+	// to 0,0 and run the following command to loop forever:
+
+	while(1);
 }
