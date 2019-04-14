@@ -10,9 +10,6 @@ const char welcome_line2[] PROGMEM = "3\xf7 Robot";
 const char demo_name_line1[] PROGMEM = "Maze";
 const char demo_name_line2[] PROGMEM = "solver";
 
-char path[100] = "";
-unsigned char path_length = 0; // the length of the path
-
 // A couple of simple tunes, stored in program space.
 const char welcome[] PROGMEM = ">g32>>c32";
 const char go[] PROGMEM = "L16 cdegreg4";
@@ -211,22 +208,22 @@ void follow_line()
 		else
 		set_motors(max,max-power_difference);
 		
-				// We use the inner three sensors (1, 2, and 3) for
-				// determining whether there is a line straight ahead, and the
-				// sensors 0 and 4 for detecting lines going to the left and
-				// right.
+		// We use the inner three sensors (1, 2, and 3) for
+		// determining whether there is a line straight ahead, and the
+		// sensors 0 and 4 for detecting lines going to the left and
+		// right.
 
-				if(sensors[1] < 100 && sensors[2] < 100 && sensors[3] < 100)
-				{
-					// There is no line visible ahead, and we didn't see any
-					// intersection.  Must be a dead end.
-					return;
-				}
-				else if(sensors[0] > 200 || sensors[4] > 200)
-				{
-					// Found an intersection.
-					return;
-				}
+		if(sensors[1] < 100 && sensors[2] < 100 && sensors[3] < 100)
+		{
+			// There is no line visible ahead, and we didn't see any
+			// intersection.  Must be a dead end.
+			return;
+		}
+		else if(sensors[0] > 200 || sensors[4] > 200)
+		{
+			// Found an intersection.
+			return;
+		}
 
 	}
 }
