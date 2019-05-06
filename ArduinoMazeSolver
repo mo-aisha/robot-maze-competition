@@ -239,12 +239,11 @@ void follow_line()
       // Found an intersection.
       return;
     }
-
   }
 }
 
 // This function is called once.
-void maze_solve()
+void loop()
 {
   // Loop until we have solved the maze.
   while(1)
@@ -261,21 +260,3 @@ void maze_solve()
   }
 }
 
-// This is the main function, where the code starts.  All C programs
-// must have a main() function defined somewhere.
-int main()
-{
-  // set up the 3pi
-  setup();
-
-  // Call our maze solving routine.
-  maze_solve();
-
-  // This part of the code is never reached.  A robot should
-  // never reach the end of its program, or unpredictable behavior
-  // will result as random code starts getting executed.  If you
-  // really want to stop all actions at some point, set your motors
-  // to 0,0 and run the following command to loop forever:
-
-  while(1);
-}
