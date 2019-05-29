@@ -274,12 +274,12 @@ void turn(char dir)
     case 'L':
     // Turn left.
     motors.setSpeeds(-80,80);
-    delay(150);
+    delay(175);
     break;
     case 'R':
     // Turn right.
     motors.setSpeeds(80,-80);
-    delay(150);
+    delay(175);
     break;
     case 'B':
     // Turn around.
