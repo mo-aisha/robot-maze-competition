@@ -284,7 +284,7 @@ void turn(char dir)
     case 'B':
     // Turn around.
     motors.setSpeeds(80,-80);
-    delay(400);
+    delay(350);
     break;
     case 'S':
     // Don't do anything!
