@@ -475,6 +475,9 @@ void loop()
       motors.setSpeeds(40,40);
       delay(200);
 
+      motors.setSpeeds(0,0);
+      delay(800);
+      motors.setSpeeds(40,40);
       // Make a turn according to the instruction stored in
       // path[i].
       turn(path[i]);
