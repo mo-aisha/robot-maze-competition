@@ -38,13 +38,13 @@ Turns the robot in the direction specified. Direction must be:
 - B (Rotate 180 degrees)
 - Any other character will not turn the robot
 
-### void straightUntilIntersection()
+### int straightUntilIntersection()
 Will go straight until the robot detects an intersection. It returns a integer of the number of grid squares it has moved. 
 
 ### void directionsAvailable(unsigned int \*direction_array)
 It accepts an array of length 3 and populates the array with the directions of travel available to the robot, in the form of [leftTurnAvailable, straightAvailable, rightTurnAvailable]
 
-### unsigned char isEndOfMaze()
+### unsigned int isEndOfMaze()
 Will return 1 if it is the end of the maze, 0 otherwise
 
 ### void stop()

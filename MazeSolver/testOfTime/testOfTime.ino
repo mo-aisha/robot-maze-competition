@@ -5,7 +5,7 @@
 #include <OrangutanLCD.h>
 #include <OrangutanPushbuttons.h>
 #include <OrangutanBuzzer.h>
-#include "Queue.h"
+#include <MazeRunner.h>
 
 Pololu3pi bot;
 OrangutanLCD lcd;
@@ -185,11 +185,11 @@ void setup()
   while(buzzer.isPlaying());
 }
 
-void follow_line()
+unsigned int follow_line()
 {
   int last_proportional = 0;
   long integral=0;
-
+  unsigned long startTime = millis();
   while(1)
   {
 
@@ -237,12 +237,16 @@ void follow_line()
     {
       // There is no line visible ahead, and we didn't see any
       // intersection.  Must be a dead end.
-      return;
+          motors.setSpeeds(50,50);
+    delay(50);
+      return millis() - startTime;
     }
     else if(sensors[0] > 200 || sensors[4] > 200)
     {
       // Found an intersection.
-      return;
+          motors.setSpeeds(50,50);
+    delay(50);
+      return millis() - startTime;
     }
   }
 }
@@ -300,14 +304,15 @@ void loop()
   while(1)
   {
     // FIRST MAIN LOOP BODY
-    follow_line();
-    
+    unsigned int timeTaken = follow_line();
+    lcd.clear();
+    lcd.print(timeTaken);
     // Drive straight a bit.  This helps us in case we entered the
     // intersection at an angle.
     // Note that we are slowing down - this prevents the robot
     // from tipping forward too much.
-    motors.setSpeeds(50,50);
-    delay(50);
+//    motors.setSpeeds(50,50);
+//    delay(50);
 
     // These variables record whether the robot has seen a line to the
     // left, straight ahead, and right, while examining the current
@@ -317,18 +322,15 @@ void loop()
     unsigned char found_right=0;
 
     unsigned int sensors[5];
-    lcd.clear();
     read_line(sensors,IR_EMITTERS_ON);
 
     // Check for left and right exits.
     if(sensors[0] > 100) {
       found_left = 1;
-      lcd.print("L ");
     }
         
     if(sensors[4] > 100) {
       found_right = 1;
-      lcd.print("R ");
     }
       
     // Drive straight a bit more - this is enough to line up our
@@ -342,7 +344,6 @@ void loop()
     if(position >= 1000 && position <= 3000)
     {
       found_straight = 1;
-      print("S ");
     }
   
 

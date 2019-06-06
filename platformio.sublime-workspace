@@ -1,0 +1,1141 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"pla",
+				"playChime"
+			],
+			[
+				"gif",
+				"gifURI"
+			],
+			[
+				"n",
+				"numberOfChimes"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"co",
+				"constructor()\tconstructor()"
+			],
+			[
+				"putStr",
+				"putStrLn"
+			],
+			[
+				"scr",
+				"scoreLess42"
+			],
+			[
+				"word",
+				"wordScore3"
+			],
+			[
+				"wordS",
+				"wordScore"
+			],
+			[
+				"sum",
+				"sumOddSquares"
+			],
+			[
+				"dialogues",
+				"Dialogues"
+			],
+			[
+				"putS",
+				"putStrLn"
+			],
+			[
+				"find",
+				"findDialogue"
+			],
+			[
+				"dialog",
+				"dialogue"
+			],
+			[
+				"put",
+				"putStr"
+			],
+			[
+				"lizzy",
+				"lizzyLoop"
+			],
+			[
+				"Dia",
+				"Dialogues"
+			],
+			[
+				"mar",
+				"marginTop"
+			],
+			[
+				"tota",
+				"totalTime"
+			],
+			[
+				"nP",
+				"nPasswordConfirm"
+			],
+			[
+				"npass",
+				"nPasswordConfirm"
+			],
+			[
+				"res",
+				"responseJson"
+			],
+			[
+				"videos",
+				"videosArray"
+			],
+			[
+				"get",
+				"getHistory"
+			],
+			[
+				"dele",
+				"deleteLargest"
+			],
+			[
+				"video",
+				"videoID"
+			],
+			[
+				"med",
+				"mediaHistoryID"
+			],
+			[
+				"ro",
+				"rowKey"
+			],
+			[
+				"histor",
+				"historyItem"
+			],
+			[
+				"hist",
+				"historyItem"
+			],
+			[
+				"error",
+				"errorMessage"
+			],
+			[
+				"userN",
+				"username"
+			],
+			[
+				"regis",
+				"registerUser"
+			],
+			[
+				"resp",
+				"responseText"
+			],
+			[
+				"Loca",
+				"locations"
+			],
+			[
+				"halve",
+				"halves1"
+			],
+			[
+				"V",
+				"View"
+			],
+			[
+				"onAdd",
+				"onAddItemsChange"
+			],
+			[
+				"Drawer",
+				"DrawerStack"
+			],
+			[
+				"Tab",
+				"TabBarTop"
+			],
+			[
+				"reg",
+				"Register"
+			],
+			[
+				"Sear",
+				"SearchScreen"
+			],
+			[
+				"Media",
+				"MediaSearchStack"
+			],
+			[
+				"DrawerNav",
+				"DrawerNavigation"
+			],
+			[
+				"naviga",
+				"navigationOptions"
+			],
+			[
+				"YOu",
+				"Youtube"
+			],
+			[
+				"You",
+				"Youtube"
+			],
+			[
+				"Sea",
+				"SearchStack"
+			],
+			[
+				"media",
+				"mediaImage"
+			],
+			[
+				"Vide",
+				"VideoListScreen"
+			],
+			[
+				"Med",
+				"MediaListItem"
+			],
+			[
+				"Sign",
+				"SignIn"
+			],
+			[
+				"LoginS",
+				"LoginStack"
+			],
+			[
+				"Login",
+				"LoginScreen"
+			],
+			[
+				"tex",
+				"TextInput"
+			],
+			[
+				"feed",
+				"feedBackItemSubmitted"
+			],
+			[
+				"scree",
+				"screenClassOverride"
+			],
+			[
+				"Cos",
+				"console"
+			],
+			[
+				"total",
+				"totalSeatsFree"
+			],
+			[
+				"perce",
+				"percentFree"
+			],
+			[
+				"progre",
+				"progressValue"
+			],
+			[
+				"submit",
+				"submitForm"
+			],
+			[
+				"em",
+				"emailValidate"
+			],
+			[
+				"te",
+				"textInput"
+			],
+			[
+				"border",
+				"borderWidth"
+			],
+			[
+				"Te",
+				"TextInput"
+			],
+			[
+				"Power",
+				"PowerButton"
+			],
+			[
+				"add",
+				"addAnother"
+			],
+			[
+				"refe",
+				"referee_id"
+			],
+			[
+				"A",
+				"AsyncStorage"
+			],
+			[
+				"ref",
+				"refereeID"
+			],
+			[
+				"prof",
+				"profession"
+			],
+			[
+				"send",
+				"sendData"
+			],
+			[
+				"back",
+				"backgroundColour"
+			],
+			[
+				"clear",
+				"clearStorage"
+			],
+			[
+				"foot",
+				"footerButtonsRow"
+			],
+			[
+				"T",
+				"TouchableHighlight"
+			],
+			[
+				"filter",
+				"filterArray"
+			],
+			[
+				"filt",
+				"filterArray"
+			],
+			[
+				"fl",
+				"flipFilter"
+			],
+			[
+				"footer",
+				"footerButtonText"
+			],
+			[
+				"foote",
+				"footerButtonText"
+			],
+			[
+				"about",
+				"aboutButton"
+			],
+			[
+				"crea",
+				"createAuthorisationKey"
+			],
+			[
+				"Auth",
+				"AuthorizationKey"
+			],
+			[
+				"sty",
+				"style"
+			],
+			[
+				"roo",
+				"roomID"
+			],
+			[
+				"room",
+				"roomID"
+			],
+			[
+				"react",
+				"react-native"
+			],
+			[
+				"isP",
+				"isPi"
+			],
+			[
+				"is",
+				"is420"
+			],
+			[
+				"sca",
+				"scaleFactor"
+			],
+			[
+				"create",
+				"createStyle"
+			],
+			[
+				"viewPort",
+				"viewPortWidth"
+			],
+			[
+				"transfor",
+				"transformedContentRect"
+			],
+			[
+				"View",
+				"ViewTransformer"
+			],
+			[
+				"Error",
+				"Errormsg"
+			],
+			[
+				"da",
+				"dataFound"
+			],
+			[
+				"moda",
+				"modalText"
+			],
+			[
+				"data",
+				"dataFound"
+			],
+			[
+				"nav",
+				"navigation"
+			],
+			[
+				"_re",
+				"_renderSectionHeader"
+			],
+			[
+				"filtere",
+				"filteredData"
+			],
+			[
+				"filte",
+				"filteredData"
+			],
+			[
+				"onP",
+				"onPage"
+			],
+			[
+				"map",
+				"mapKeyVisible"
+			],
+			[
+				"Map",
+				"MapKeyItem"
+			],
+			[
+				"image",
+				"imageSource"
+			],
+			[
+				"compo",
+				"componentDidMount"
+			],
+			[
+				"ge",
+				"_getNameOfRooms"
+			],
+			[
+				"fil",
+				"filterText"
+			],
+			[
+				"cons",
+				"console"
+			],
+			[
+				"c",
+				"console"
+			],
+			[
+				"dea",
+				"defaultProps"
+			],
+			[
+				"dat",
+				"dataSource"
+			],
+			[
+				"s",
+				"style"
+			],
+			[
+				"flex",
+				"flex-start"
+			],
+			[
+				"refre",
+				"refreshing"
+			],
+			[
+				"W",
+				"WORKING"
+			],
+			[
+				"pr",
+				"props"
+			],
+			[
+				"totalS",
+				"totalSeatsFree"
+			],
+			[
+				"Table",
+				"noOfFreeTableSeats"
+			],
+			[
+				"PC",
+				"noOfFreePCSeats"
+			],
+			[
+				"no",
+				"noOfFreePCSeats"
+			],
+			[
+				"sett",
+				"settingSwitch"
+			],
+			[
+				"Pro",
+				"ProgressBarAndroid"
+			],
+			[
+				"st",
+				"styles"
+			],
+			[
+				"si",
+				"sizeof"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/h.c",
+			"settings":
+			{
+				"buffer_size": 11424,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "/*"
+			}
+		},
+		{
+			"file": "platformio.sublime-project",
+			"settings":
+			{
+				"buffer_size": 1938,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "platformio.ini",
+			"settings":
+			{
+				"buffer_size": 448,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/pololu/orangutan.h",
+			"settings":
+			{
+				"buffer_size": 797,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "lib/pololu/Pololu3pi/Pololu3pi.h",
+			"settings":
+			{
+				"buffer_size": 4109,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "lib/pololu/OrangutanBuzzer/OrangutanBuzzer.h",
+			"settings":
+			{
+				"buffer_size": 10005,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "PlatformIO",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"PlatformIO",
+					""
+				],
+				[
+					"PlatformIO",
+					"Build"
+				],
+				[
+					"PlatformIO",
+					"Upload"
+				],
+				[
+					"PlatformIO",
+					"Clean"
+				],
+				[
+					"PlatformIO",
+					"Test"
+				],
+				[
+					"PlatformIO",
+					"Upload using Programmer"
+				],
+				[
+					"PlatformIO",
+					"Upload SPIFFS image"
+				],
+				[
+					"PlatformIO",
+					"Update platforms and libraries"
+				],
+				[
+					"PlatformIO",
+					"Upgrade PlatformIO Core"
+				]
+			],
+			[
+				"PlatformIO",
+				"Build"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"j",
+				"JsPrettier: Format Code"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"indent",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"react",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"Snippet: reac",
+				"Snippet: Create react-native Class"
+			]
+		],
+		"width": 548.0
+	},
+	"console":
+	{
+		"height": 124.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/Manav/Documents/robot-maze-competition"
+	],
+	"file_history":
+	[
+		"/Users/Manav/Downloads/libpololu-avr/examples/atmega328p/3pi-demo-program/Makefile",
+		"/Users/Manav/Documents/robot-maze-competition/platformio.sublime-project",
+		"/Users/Manav/Xcode/JPMChime/legacy/App.js",
+		"/Users/Manav/Documents/robot-maze-competition/MazeSolver/solve.c",
+		"/Users/Manav/Xcode/JPMChime/FrontEnd/JPMChime/App.js",
+		"/Users/Manav/Xcode/JPMChime/FrontEnd/JPMChime/app.json",
+		"/Users/Manav/Xcode/JPMChime/FrontEnd/JPMChime/keystore.txt",
+		"/Users/Manav/Library/Application Support/Sublime Text 3/Packages/JsPrettier/JsPrettier.sublime-settings",
+		"/Users/Manav/Library/Application Support/Sublime Text 3/Packages/Babel/Babel.sublime-settings",
+		"/Users/Manav/Library/Application Support/Sublime Text 3/Packages/Pretty JSON/Pretty JSON.sublime-settings",
+		"/Users/Manav/Downloads/chime.mp3",
+		"/Users/Manav/Documents/Arduino/hardware/libpololu-arduino/avr/libraries/Pololu3pi/Pololu3pi.cpp",
+		"/Users/Manav/Documents/Arduino/hardware/libpololu-arduino/avr/libraries/Pololu3pi/Pololu3pi.h",
+		"/Users/Manav/Downloads/libpololu-avr/examples/atmega328p/servos1/Makefile",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/TableView.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/Home.js",
+		"/Users/Manav/Documents/Haskell/Lab4/tutorial_4.hs",
+		"/Users/Manav/Documents/Haskell/Lab3/tutorial_3.hs",
+		"/Users/Manav/get-pip.py",
+		"/Users/Manav/Downloads/greenfair-html5-onepage-template/index.html",
+		"/Users/Manav/Downloads/greenfair-html5-onepage-template/like_button.js",
+		"/Users/Manav/Documents/Websites/Pat - Unfinished/style.css",
+		"/Users/Manav/Documents/Websites/Pat - Unfinished/building.html",
+		"/Users/Manav/Xcode/ip-timelord/App/TimeLord/Login/SignIn.js",
+		"/Users/Manav/Downloads/coursework_1.hs",
+		"/Users/Manav/Documents/AI/coursework2/connect.py",
+		"/Users/Manav/Documents/Haskell/Coursework_1/fakeCoursework.hs",
+		"/Users/Manav/Documents/Payload/TimeLord.app/embedded.mobileprovision",
+		"/Users/Manav/Documents/Haskell/Lab1/tutorial_1.hs",
+		"/Users/Manav/Documents/Haskell/Lab2/tutorial_2.hs",
+		"/Users/Manav/Documents/Haskell/Lab5/tutorial_5.hs",
+		"/Users/Manav/Documents/Haskell/Lab6/tutorial_6.hs",
+		"/Users/Manav/Documents/Haskell/Coursework_1/coursework_1.hs",
+		"/Users/Manav/Documents/Haskell/Coursework_1/game_data_GoT.hs",
+		"/Users/Manav/Xcode/ip-timelord/App/TimeLord/android/build.gradle",
+		"/Users/Manav/Xcode/ip-timelord/App/TimeLord/android/gradle.properties",
+		"/Users/Manav/Xcode/ip-timelord/App/TimeLord/android/app/build.gradle",
+		"/Users/Manav/Downloads/client_secret_499571513980-ngt23g7j05ovqsknmgf9bm5fku2l9ci2.apps.googleusercontent.com.json",
+		"/Users/Manav/Downloads/coursework_1/coursework_1.hs",
+		"/Users/Manav/Xcode/ip-timelord/App/TimeLord/App.js",
+		"/Users/Manav/Xcode/ip-timelord/App/TimeLord/MediaListItem.js",
+		"/Users/Manav/Downloads/Search/search.js",
+		"/Users/Manav/Downloads/tutorial_2_solution.hs",
+		"/Users/Manav/Documents/DataStructuresAlgorithms/ToyChallenge/list2.txt",
+		"/Users/Manav/Documents/DataStructuresAlgorithms/ToyChallenge/list.txt",
+		"/Users/Manav/Documents/SpotiStats/SpotiStats/key.js",
+		"/Users/Manav/Desktop/untitled.eml",
+		"/Users/Manav/Desktop/auth.js",
+		"/Users/Manav/Desktop/search.js",
+		"/Users/Manav/Desktop/search.html",
+		"/Users/Manav/Documents/ip-timelord/App/TimeLord/node_modules/react-native/Libraries/EventEmitter/NativeEventEmitter.js",
+		"/Users/Manav/Documents/ip-timelord/App/TimeLord/node_modules/react-native-google-sign-in/js/GoogleSignIn.ios.js",
+		"/Users/Manav/Documents/ip-timelord/App/TimeLord/node_modules/react-native/Libraries/Promise.js",
+		"/Users/Manav/Documents/ip-timelord/App/TimeLord/node_modules/react-native-google-sign-in/index.js",
+		"/Users/Manav/Documents/ip-timelord/App/TimeLord/ios/TimeLord-Bridging-Header.h ",
+		"/Users/Manav/Documents/ip-timelord/App/TimeLord/.gitignore",
+		"/Users/Manav/Downloads/tutorial_2_v2/tutorial_2.hs",
+		"/bin/bash",
+		"/Users/Manav/Documents/TimeLord/TimeLord/Register.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/SignIn.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/MediaListItem.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/Search.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/Login.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/DrawerStack.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/App.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/Nav.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/MediaView.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/Login/Search.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/.flowconfig",
+		"/Users/Manav/Documents/TimeLord/TimeLord/ios/TimeLord.xcodeproj/project.pbxproj",
+		"/Users/Manav/Documents/TimeLord/TimeLord/node_modules/react-native/local-cli/util/Config.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/node_modules/react-native/local-cli/core/__fixtures__/files/package.json",
+		"/Users/Manav/Documents/TimeLord/TimeLord/node_modules/metro/src/blacklist.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/node_modules/metro/src/rn-cli.config.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/package.json",
+		"/Users/Manav/Downloads/tutorial_1.hs",
+		"/Users/Manav/Documents/Udacity/Machine/ud120-projects/tools/email_authors.pkl",
+		"/Users/Manav/Documents/TimeLord/TimeLord/Home.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/App.test.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/LogSignScreen/TopTabs/TopTabs.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/LogSignScreen/LogSignScreen.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/LogSignScreen/InputComponents/Password.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/LogSignScreen/LoginScreen/LoginButtons/LoginButtons.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/LogSignScreen/SignInScreen/SignInScreen.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/LogSignScreen/LoginScreen/LoginButtons/GoogleButton.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/LogSignScreen/LoginScreen/LoginButtons/FacebookButton.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/LogSignScreen/LoginScreen/LoginScreen.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/LogSignScreen/InputComponents/PasswordRepeat.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/LogSignScreen/CompanyBanner/CompanyBanner.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/LogSignScreen/InputComponents/Name.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/LogSignScreen/InputComponents/Email.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/LogSignScreen/LoginScreen/LoginButtons/LoginButton.js",
+		"/Users/Manav/Documents/TimeLord/TimeLord/LogSignScreen/GuestButton/GuestButton.js",
+		"/Users/Manav/Documents/SpotiStats/SpotiStats/ios/SpotiStats/Info.plist",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/node_modules/react-native-view-transformer/library/transform/ViewTransformer.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/node_modules/react-native-view-transformer/library/index.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/Feedback.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/About.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/FirebaseAnalytics.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/package.json",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/Table.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/Seat.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/.gitignore",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/FilterItem.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/Loading.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/MapKey.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/MapKeyItem.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/RoomListItem.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/Settings.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/Filters.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/Error.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/app.json",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/App.js",
+		"/Users/Manav/Documents/SeatSpaceApp/SeatSpaceApp/SeatSpace/ios/Podfile",
+		"/Users/Manav/Downloads/2011_london_boundaries/OA_2011_BGC_London/OA_2011_BGC_Brent.MAP",
+		"/Users/Manav/Documents/codeforgood_part3/team-11/app/LinkAge/PowerButton.js",
+		"/Users/Manav/Documents/codeforgood_part3/team-11/app/LinkAge/CategoryItem.js",
+		"/Users/Manav/Documents/codeforgood_part3/team-11/app/LinkAge/AboutMe.js",
+		"/Users/Manav/Documents/codeforgood_part3/team-11/app/LinkAge/package.json",
+		"/Users/Manav/Documents/codeforgood_part3/team-11/app/LinkAge/Name.js",
+		"/Users/Manav/Documents/codeforgood_part3/team-11/app/LinkAge/Overview.js",
+		"/Users/Manav/Documents/codeforgood_part3/team-11/app/LinkAge/Notes.js",
+		"/Users/Manav/Documents/codeforgood_part3/team-11/app/LinkAge/App.test.js",
+		"/Users/Manav/Documents/codeforgood_part3/team-11/app/LinkAge/app.json",
+		"/Users/Manav/Documents/codeforgood_part3/team-11/app/LinkAge/App.js",
+		"/Users/Manav/Documents/codeforgood_part3/team-11/app/LinkAge/AboutUs.js",
+		"/Users/Manav/Documents/codeforgood_part3/team-11/app/LinkAge/SubCategory.js",
+		"/Users/Manav/Documents/codeforgood_part3/team-11/app/LinkAge/Category.js"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"PCMSK1",
+			"OCR2B"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/h.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11424,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								478,
+								478
+							]
+						],
+						"settings":
+						{
+							"auto_name": "/*",
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "platformio.sublime-project",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1938,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "platformio.ini",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 448,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								406,
+								406
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "lib/pololu/orangutan.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 797,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								599,
+								646
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "lib/pololu/Pololu3pi/Pololu3pi.h",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4109,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								578,
+								577
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "lib/pololu/OrangutanBuzzer/OrangutanBuzzer.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10005,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1,
+								1
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 199.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 174.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "PlatformIO",
+	"project": "platformio.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"curl -H \"Content-Type: application/json\" -X POST \""
+			],
+			[
+				"proje",
+				"ios/TimeLord.xcodeproj/project.pbxproj"
+			],
+			[
+				"config.js",
+				"node_modules/react-native/local-cli/util/Config.js"
+			],
+			[
+				"blackl",
+				"node_modules/metro/src/blacklist.js"
+			],
+			[
+				"rn-cli.con",
+				"node_modules/metro/src/rn-cli.config.js"
+			],
+			[
+				"blac",
+				"node_modules/metro/src/blacklist.js"
+			],
+			[
+				"rn-c",
+				"node_modules/metro/src/rn-cli.config.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 161.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

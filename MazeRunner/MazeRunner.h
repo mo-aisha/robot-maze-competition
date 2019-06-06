@@ -23,11 +23,12 @@ class MazeRunner
     void turn(char dir);
     unsigned int straightUntilIntersection();
    	void directionsAvailable(unsigned int *direction_array);
-    unsigned char isEndOfMaze();
+    unsigned int isEndOfMaze();
     void stop();
   private:
   	void load_custom_characters();
   	void display_readings(const unsigned int *calibrated_values);
+    void MazeRunner::setSpeedsFor(int leftMotor, int rightMotor, int delay_ms);
 };
 
 #endif

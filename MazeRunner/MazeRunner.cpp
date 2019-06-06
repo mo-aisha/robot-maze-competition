@@ -39,27 +39,35 @@ const char levels[] PROGMEM = {
   0b11111
 };
 
+const int straight_max_speed = 60;
+const int turning_max_speed = 80;
+const int delay_ms = 175;
+const int unit_time = 325;
+
+const int white_threshold = 100;
+const int grey_threshold = 200;
+const int black_threshold = 600;
+
 MazeRunner::MazeRunner() {}
 
 void MazeRunner::setupRobot() {
-  unsigned int counter; // used as a simple timer
-
   // This must be called at the beginning of 3pi code, to set up the
   // sensors.  We use a value of 2000 for the timeout, which
   // corresponds to 2000*0.4 us = 0.8 ms on our 20 MHz processor.
   bot.init(2000);
-  load_custom_characters(); // load the custom characters
+
+  load_custom_characters(); 
   
   // Play welcome music and display a message
   OrangutanLCD::printFromProgramSpace(welcome_line1);
-  OrangutanLCD::gotoXY(0,1);
+  OrangutanLCD::gotoXY(0, 1);
   OrangutanLCD::printFromProgramSpace(welcome_line2);
   OrangutanBuzzer::playFromProgramSpace(welcome);
   delay(1000);
 
   OrangutanLCD::clear();
   OrangutanLCD::printFromProgramSpace(welcome_line3);
-  OrangutanLCD::gotoXY(0,1);
+  OrangutanLCD::gotoXY(0, 1);
   OrangutanLCD::printFromProgramSpace(welcome_line4);
   delay(1000);
 
@@ -70,7 +78,7 @@ void MazeRunner::setupRobot() {
     OrangutanLCD::clear();
     OrangutanLCD::print(bat);
     OrangutanLCD::print("mV");
-    OrangutanLCD::gotoXY(0,1);
+    OrangutanLCD::gotoXY(0, 1);
     OrangutanLCD::print("Press B");
 
     delay(100);
@@ -83,11 +91,12 @@ void MazeRunner::setupRobot() {
 
   // Auto-calibration: turn right and left while calibrating the
   // sensors.
-  for(counter=0;counter<80;counter++) {
-    if(counter < 20 || counter >= 60)
+  for(int counter = 0; counter < 80; counter++) {
+    if(counter < 20 || counter >= 60) {
       OrangutanMotors::setSpeeds(40,-40);
-    else
+    } else {
       OrangutanMotors::setSpeeds(-40,40);
+    }
 
     // This function records a set of sensor readings and keeps
     // track of the minimum and maximum values encountered.  The
@@ -100,12 +109,12 @@ void MazeRunner::setupRobot() {
     // 80*20 = 1600 ms.
     delay(20);
   }
-  OrangutanMotors::setSpeeds(0,0);
+  stop();
 
   // Display calibrated values as a bar graph.
   while(!OrangutanPushbuttons::isPressed(BUTTON_B)) {
     // Read the sensor values and get the position measurement.
-    unsigned int position = bot.readLine(sensors,IR_EMITTERS_ON);
+    unsigned int position = bot.readLine(sensors, IR_EMITTERS_ON);
 
     // Display the position measurement, which will go from 0
     // (when the leftmost sensor is over the line) to 4000 (when
@@ -114,11 +123,12 @@ void MazeRunner::setupRobot() {
     // to make sure the robot is ready to go.
     OrangutanLCD::clear();
     print_long(position);
-    OrangutanLCD::gotoXY(0,1);
+    OrangutanLCD::gotoXY(0, 1);
     display_readings(sensors);
 
     delay(100);
   }
+
   OrangutanPushbuttons::waitForRelease(BUTTON_B);
 
   OrangutanLCD::clear();
@@ -131,27 +141,28 @@ void MazeRunner::setupRobot() {
 }
 
 void MazeRunner::load_custom_characters() {
-  OrangutanLCD::loadCustomCharacter(levels+0,0); // no offset, e.g. one bar
-  OrangutanLCD::loadCustomCharacter(levels+1,1); // two bars
-  OrangutanLCD::loadCustomCharacter(levels+2,2); // etc...
-  OrangutanLCD::loadCustomCharacter(levels+3,3);
-  OrangutanLCD::loadCustomCharacter(levels+4,4);
-  OrangutanLCD::loadCustomCharacter(levels+5,5);
-  OrangutanLCD::loadCustomCharacter(levels+6,6);
+  // no offset, e.g. one bar
+  OrangutanLCD::loadCustomCharacter(levels + 0, 0);
+  // two bars
+  OrangutanLCD::loadCustomCharacter(levels + 1, 1); 
+  // etc...
+  OrangutanLCD::loadCustomCharacter(levels + 2, 2); 
+  OrangutanLCD::loadCustomCharacter(levels + 3, 3);
+  OrangutanLCD::loadCustomCharacter(levels + 4, 4);
+  OrangutanLCD::loadCustomCharacter(levels + 5, 5);
+  OrangutanLCD::loadCustomCharacter(levels + 6, 6);
   OrangutanLCD::clear(); 
 }
 
 // This function displays the sensor readings using a bar graph.
 void MazeRunner::display_readings(const unsigned int *calibrated_values) {
-  unsigned char i;
+  // Initialize the array of characters that we will use for the
+  // graph.  Using the space, an extra copy of the one-bar
+  // character, and character 255 (a full black box), we get 10
+  // characters in the array.
+  const int display_characters[10] = {' ',0,0,1,2,3,4,5,6,255};
 
-  for(i=0;i<5;i++) {
-    // Initialize the array of characters that we will use for the
-    // graph.  Using the space, an extra copy of the one-bar
-    // character, and character 255 (a full black box), we get 10
-    // characters in the array.
-    const int display_characters[10] = {' ',0,0,1,2,3,4,5,6,255};
-
+  for(unsigned int i = 0; i < 5; i++) {
     // The variable c will have values from 0 to 9, since
     // calibrated values are in the range of 0 to 1000, and
     // 1000/101 is 9 with integer math.
@@ -172,7 +183,7 @@ unsigned int MazeRunner::straightUntilIntersection() {
     unsigned int position = bot.readLine(sensors,IR_EMITTERS_ON);
 
     // The "proportional" term should be 0 when we are on the line.
-    int proportional = ((int)position) - 2000;
+    int proportional = ((int) position) - 2000;
 
     // Compute the derivative (change) and integral (sum) of the
     // position.
@@ -187,104 +198,94 @@ unsigned int MazeRunner::straightUntilIntersection() {
     // to the left.  If it is a negative number, the robot will
     // turn to the right, and the magnitude of the number determines
     // the sharpness of the turn.
-    int power_difference = proportional/20 + integral/10000 + derivative*3/2;
+    int power_difference = proportional / 20 + integral / 10000 + derivative * 3 / 2;
 
     // Compute the actual motor settings.  We never set either motor
     // to a negative value.
-    const int max = 60; // the maximum speed
-    if(power_difference > max)
-      power_difference = max;
-    if(power_difference < -max)
-      power_difference = -max;
+    if(power_difference > straight_max_speed)
+      power_difference = straight_max_speed;
+    if(power_difference < -straight_max_speed)
+      power_difference = -straight_max_speed;
     
-    if(power_difference < 0)
-      OrangutanMotors::setSpeeds(max+power_difference,max);
-    else
-      OrangutanMotors::setSpeeds(max,max-power_difference);
+    if(power_difference < 0) {
+      OrangutanMotors::setSpeeds(straight_max_speed+power_difference,straight_max_speed);
+    } else {
+      OrangutanMotors::setSpeeds(straight_max_speed,straight_max_speed-power_difference);
+    }
     
     // We use the inner three sensors (1, 2, and 3) for
     // determining whether there is a line straight ahead, and the
     // sensors 0 and 4 for detecting lines going to the left and
     // right.
-    if(sensors[1] < 100 && sensors[2] < 100 && sensors[3] < 100){
+    if(sensors[1] < white_threshold && sensors[2] < white_threshold && sensors[3] < white_threshold) {
       // There is no line visible ahead, and we didn't see any
       // intersection.  Must be a dead end.
-      OrangutanMotors::setSpeeds(0,0);
-      return (millis() - startTime) / 500;
-    }
-    else if(sensors[0] > 200 || sensors2[4] > 200) {
+      stop();
+      return round((millis() - startTime) / unit_time);
+    } else if(sensors[0] > grey_threshold || sensors[4] > grey_threshold) {
       // Found an intersection.
-      OrangutanMotors::setSpeeds(0,0);
-      return (millis() - startTime) / 500;
+      stop();
+      return round((millis() - startTime) / unit_time);
     }
-
   }
 }
 
 void MazeRunner::turn(char dir) {
   switch(dir) {
     case 'L':
-    // Turn left.
-    OrangutanMotors::setSpeeds(-80,80);
-    delay(175);
-    break;
+    case 'l':
+      setSpeedsFor(-turning_max_speed, turning_max_speed, delay_ms);
+      break;
     case 'R':
-    // Turn right.
-    OrangutanMotors::setSpeeds(80,-80);
-    delay(175);
-    break;
+    case 'r':
+      // Turn right.
+      setSpeedsFor(turning_max_speed, -turning_max_speed, delay_ms);
+      break;
     case 'B':
-    // Turn around.
-    OrangutanMotors::setSpeeds(80,-80);
-    delay(350);
-    break;
+    case 'b':
+      // Turn around.
+      setSpeedsFor(-turning_max_speed, turning_max_speed, delay_ms * 2);
+      break;
     default:
-    // Don't do anything!
-    break;
+      //Play annoying sound to show error
+      OrangutanBuzzer::playFrequency(6000, 250, 7);
+      break;
   }
-  OrangutanMotors::setSpeeds(0,0);
+  stop();
 }
 
+void MazeRunner::setSpeedsFor(int leftMotor, int rightMotor, int delay_ms) {
+  OrangutanMotors::setSpeeds(leftMotor, rightMotor);
+  delay(delay_ms);
+}
 
 void MazeRunner::directionsAvailable(unsigned int *direction_array) {
-  direction_array[0] = 0;
-  direction_array[1] = 0;
-  direction_array[2] = 0;
   read_line(sensors,IR_EMITTERS_ON);
 
-    // Check for left and right exits.
-  if(sensors[0] > 100) {
-    direction_array[0] = 1;
-  }
+  // Check for left and right exits.
+  direction_array[0] = sensors[0] > white_threshold;
+  direction_array[2] = sensors[4] > white_threshold;
 
-  if(sensors[4] > 100) {
-    direction_array[2] = 1;
-  }
+  // Drive straight a bit more - this is enough to line up our
+  // wheels with the intersection.
+  setSpeedsFor(turning_max_speed / 2,  turning_max_speed / 2, 200);
 
-    // Drive straight a bit more - this is enough to line up our
-    // wheels with the intersection.
-  OrangutanMotors::setSpeeds(40,40);
-  delay(200);
-
-
-    // Check for a straight exit.
+  // Check for a straight exit.
   unsigned int position = read_line(sensors,IR_EMITTERS_ON);
-  if(position >= 1000 && position <= 3000) {
-    direction_array[1] = 1;
-  }
+  direction_array[1] = position >= 1000 && position <= 3000;
 }
 
-unsigned char MazeRunner::isEndOfMaze() {
+unsigned int MazeRunner::isEndOfMaze() {
   read_line(sensors,IR_EMITTERS_ON);
-    // Checks if all the sensors are above a black line
-  if (sensors[1] > 600 && sensors[2] > 600 && sensors[3] > 600 && sensors[4] > 600 && sensors[0] > 600) {
-    return 1;
-  }
-  return 0;
+  return sensors[1] > black_threshold 
+    && sensors[2] > black_threshold 
+    && sensors[3] > black_threshold 
+    && sensors[4] > black_threshold 
+    && sensors[0] > black_threshold;
 }
 
 void MazeRunner::stop() {
-  OrangutanMotors::setSpeeds(0,0);
+  setSpeedsFor(0, 0, 0);
 }
 
 

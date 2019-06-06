@@ -1,41 +1,32 @@
-#include <Pololu3pi.h>
-#include <PololuQTRSensors.h>
-#include <OrangutanMotors.h>
-#include <OrangutanAnalog.h>
-#include <OrangutanLCD.h>
-#include <OrangutanPushbuttons.h>
-#include <OrangutanBuzzer.h>
-#include "Queue.h"
+#include "MazeRunner.h"
 
-Pololu3pi bot;
-OrangutanLCD lcd;
-OrangutanPushbuttons button;
-OrangutanMotors motors;
-OrangutanBuzzer buzzer;
-OrangutanAnalog analog;
 
-// This include file allows data to be stored in program space.  The
-// ATmega168 has 16k of program space compared to 1k of RAM, so large
-// pieces of static data should be stored in program space.
+#include "../Pololu3pi/Pololu3pi.h"
+#include "../PololuQTRSensors/PololuQTRSensors.h"
+#include "../OrangutanMotors/OrangutanMotors.h"
+#include "../OrangutanAnalog/OrangutanAnalog.h"
+#include "../OrangutanLCD/OrangutanLCD.h"
+#include "../OrangutanPushbuttons/OrangutanPushbuttons.h"
+#include "../OrangutanBuzzer/OrangutanBuzzer.h"
+
+static Pololu3pi bot;
+static OrangutanLCD lcd;
+static OrangutanPushbuttons button;
+static OrangutanMotors motors;
+static OrangutanBuzzer buzzer;
+static OrangutanAnalog analog;
+
 #include <avr/pgmspace.h>
 
-// Introductory messages.  The "PROGMEM" identifier causes the data to
-// go into program space.
 const char welcome_line1[] PROGMEM = "HELLO";
 const char welcome_line2[] PROGMEM = "3\xf7 Robot";
 const char demo_name_line1[] PROGMEM = "Maze";
 const char demo_name_line2[] PROGMEM = "solver";
 
-char path[100] = "";
-unsigned char path_length = 0; // the length of the path
-
-// A couple of simple tunes, stored in program space.
 const char welcome[] PROGMEM = ">g32>>c32";
 const char go[] PROGMEM = "L16 cdegreg4";
 const char done[] PROGMEM = ">>a32";
 
-// Data for generating the characters used in load_custom_characters
-// and display_readings. This is also stored in program space.
 const char levels[] PROGMEM = {
   0b00000,
   0b00000,
@@ -53,9 +44,8 @@ const char levels[] PROGMEM = {
   0b11111
 };
 
-// This function loads custom characters into the LCD.  Up to 8
-// characters can be loaded; we use them for 7 levels of a bar graph.
-void load_custom_characters()
+
+void MazeRunner::load_custom_characters()
 {
   lcd.loadCustomCharacter(levels+0,0); // no offset, e.g. one bar
   lcd.loadCustomCharacter(levels+1,1); // two bars
@@ -68,7 +58,7 @@ void load_custom_characters()
 }
 
 // This function displays the sensor readings using a bar graph.
-void display_readings(const unsigned int *calibrated_values)
+void MazeRunner::display_readings(const unsigned int *calibrated_values)
 {
   unsigned char i;
 
@@ -89,9 +79,7 @@ void display_readings(const unsigned int *calibrated_values)
   }
 }
 
-// Initializes the 3pi, displays a welcome message, calibrates, and
-// plays the initial music.
-void setup()
+ void MazeRunner::setupRobot()
 {
   unsigned int counter; // used as a simple timer
   unsigned int sensors[5]; // an array to hold sensor values
@@ -185,11 +173,11 @@ void setup()
   while(buzzer.isPlaying());
 }
 
-void follow_line()
+unsigned int MazeRunner::straightUntilIntersection()
 {
   int last_proportional = 0;
   long integral=0;
-
+  unsigned long startTime = millis();
   while(1)
   {
 
@@ -237,39 +225,19 @@ void follow_line()
     {
       // There is no line visible ahead, and we didn't see any
       // intersection.  Must be a dead end.
-      return;
+      motors.setSpeeds(0,0);
+      return (startTime - millis()) / 500;
     }
     else if(sensors[0] > 200 || sensors[4] > 200)
     {
       // Found an intersection.
-      return;
+      motors.setSpeeds(0,0);
+      return (startTime - millis()) / 500;
     }
   }
 }
 
-// This function decides which way to turn during the learning phase of
-// maze solving.  It uses the variables found_left, found_straight, and
-// found_right, which indicate whether there is an exit in each of the
-// three directions, applying the "left hand on the wall" strategy.
-char select_turn(unsigned char found_left, unsigned char found_straight, unsigned char found_right)
-{
-  // Make a decision about how to turn.  The following code
-  // implements a left-hand-on-the-wall strategy, where we always
-  // turn as far to the left as possible.
-  if(found_left)
-  return 'L';
-  else if(found_straight)
-  return 'S';
-  else if(found_right)
-  return 'R';
-  else
-  return 'B';
-}
-
-// Turns according to the parameter dir, which should be 'L', 'R', 'S'
-// (straight), or 'B' (back).
-void turn(char dir)
-{
+void MazeRunner::turn(char dir) {
   switch(dir)
   {
     case 'L':
@@ -291,43 +259,23 @@ void turn(char dir)
     // Don't do anything!
     break;
   }
+  motors.setSpeeds(0,0);
 }
 
-// This function is called once.
-void loop()
-{
-  // Loop until we have solved the maze.
-  while(1)
-  {
-    // FIRST MAIN LOOP BODY
-    follow_line();
-    
-    // Drive straight a bit.  This helps us in case we entered the
-    // intersection at an angle.
-    // Note that we are slowing down - this prevents the robot
-    // from tipping forward too much.
-    motors.setSpeeds(50,50);
-    delay(50);
 
-    // These variables record whether the robot has seen a line to the
-    // left, straight ahead, and right, while examining the current
-    // intersection.
-    unsigned char found_left=0;
-    unsigned char found_straight=0;
-    unsigned char found_right=0;
-
-    unsigned int sensors[5];
+void MazeRunner::directionsAvailable(unsigned int *direction_array) {
+	unsigned int sensors[5];
     lcd.clear();
     read_line(sensors,IR_EMITTERS_ON);
 
     // Check for left and right exits.
     if(sensors[0] > 100) {
-      found_left = 1;
+      direction_array[0] = 1;
       lcd.print("L ");
     }
         
     if(sensors[4] > 100) {
-      found_right = 1;
+      direction_array[2] = 1;
       lcd.print("R ");
     }
       
@@ -341,40 +289,20 @@ void loop()
     unsigned int position = read_line(sensors,IR_EMITTERS_ON);
     if(position >= 1000 && position <= 3000)
     {
-      found_straight = 1;
+      direction_array[1] = 1;
       print("S ");
     }
-  
-
-    // Check for the ending spot.
-    // If all three middle sensors are on dark black, we have
-    // solved the maze.
-        if (sensors[1] > 600 && sensors[2] > 600 && sensors[3] > 600 && sensors[4] > 600 && sensors[0] > 600) {
-      break;
-    }
-    
-
-    // Intersection identification is complete.
-    // If the maze has been solved, we can follow the existing
-    // path.  Otherwise, we need to learn the solution.
-    unsigned char dir = select_turn(found_left, found_straight, found_right);
-    
-    motors.setSpeeds(0,0);
-    delay(800);
-    motors.setSpeeds(40,40);
-    // Make the turn indicated by the path.
-    turn(dir);
-
-    // Store the intersection in the path variable.
-    path[path_length] = dir;
-    path_length ++;
-
-    // Display the path on the LCD.
-    // display_path();
-  }
-  // Solved the maze!
-
-  while (1) {
-    motors.setSpeeds(0, 0);
-  }
 }
+
+unsigned char isEndOfMaze() {
+	unsigned int sensors[5];
+    read_line(sensors,IR_EMITTERS_ON);
+    if (sensors[1] > 600 && sensors[2] > 600 && sensors[3] > 600 && sensors[4] > 600 && sensors[0] > 600) {
+      return 1;
+    }
+    return 0;
+
+}
+
+
+
