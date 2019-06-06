@@ -210,12 +210,12 @@ unsigned int MazeRunner::straightUntilIntersection() {
       // There is no line visible ahead, and we didn't see any
       // intersection.  Must be a dead end.
       OrangutanMotors::setSpeeds(0,0);
-      return (millis() - startTime) / 500;
+      return round((millis() - startTime) / 325);
     }
     else if(sensors[0] > 200 || sensors2[4] > 200) {
       // Found an intersection.
       OrangutanMotors::setSpeeds(0,0);
-      return (millis() - startTime) / 500;
+      return round((millis() - startTime) / 325);
     }
 
   }
