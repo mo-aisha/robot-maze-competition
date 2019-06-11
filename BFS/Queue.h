@@ -50,6 +50,11 @@ inline int Queue<T>::back()
 template<class T>
 void Queue<T>::push(const T &item)
 {
+  for(int i = _front; i < _count; i++){
+    if(item == _data[i]){
+      return;
+    }
+  }
   if(_count < _maxitems) { // Drops out when full
     _data[_back++]=item;
     ++_count;
