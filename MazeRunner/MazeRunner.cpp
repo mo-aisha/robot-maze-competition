@@ -39,16 +39,29 @@ const char levels[] PROGMEM = {
   0b11111
 };
 
-const int straight_max_speed = 60;
-const int turning_max_speed = 80;
-const int delay_ms = 175;
-const int unit_time = 325;
+ int straight_max_speed = 60;
+ int turning_max_speed = 80;
+ int delay_ms = 175;
+ double unit_time = 260.0;
 
-const int white_threshold = 100;
-const int grey_threshold = 200;
-const int black_threshold = 600;
+ int white_threshold = 100;
+ int grey_threshold = 200;
+ int black_threshold = 600;
 
 MazeRunner::MazeRunner() {}
+
+
+
+MazeRunner::MazeRunner(int straight, int turning, int delay, double unit, int white, int grey, int black) {
+  straight_max_speed = straight;
+  turning_max_speed = turning;
+  delay_ms = delay;
+  unit_time = unit;
+
+  white_threshold = white;
+  grey_threshold = grey;
+  black_threshold = black;
+}
 
 void MazeRunner::setupRobot() {
   // This must be called at the beginning of 3pi code, to set up the
@@ -220,10 +233,14 @@ unsigned int MazeRunner::straightUntilIntersection() {
     if(sensors[1] < white_threshold && sensors[2] < white_threshold && sensors[3] < white_threshold) {
       // There is no line visible ahead, and we didn't see any
       // intersection.  Must be a dead end.
+          OrangutanMotors::setSpeeds(50,50);
+    delay(50);
       stop();
       return round((millis() - startTime) / unit_time);
     } else if(sensors[0] > grey_threshold || sensors[4] > grey_threshold) {
       // Found an intersection.
+          OrangutanMotors::setSpeeds(50,50);
+    delay(50);
       stop();
       return round((millis() - startTime) / unit_time);
     }
@@ -269,7 +286,7 @@ void MazeRunner::directionsAvailable(unsigned int *direction_array) {
   // Drive straight a bit more - this is enough to line up our
   // wheels with the intersection.
   setSpeedsFor(turning_max_speed / 2,  turning_max_speed / 2, 200);
-
+  stop();
   // Check for a straight exit.
   unsigned int position = read_line(sensors,IR_EMITTERS_ON);
   direction_array[1] = position >= 1000 && position <= 3000;

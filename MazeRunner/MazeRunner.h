@@ -19,6 +19,7 @@ class MazeRunner
 {
   public:
     MazeRunner();
+    MazeRunner(int straight, int turning, int delay, double unit, int white, int grey, int black);
     void setupRobot();
     void turn(char dir);
     unsigned int straightUntilIntersection();
@@ -28,7 +29,15 @@ class MazeRunner
   private:
   	void load_custom_characters();
   	void display_readings(const unsigned int *calibrated_values);
-    void MazeRunner::setSpeedsFor(int leftMotor, int rightMotor, int delay_ms);
+    void setSpeedsFor(int leftMotor, int rightMotor, int delay_ms);
+     int straight_max_speed = 60;
+     int turning_max_speed = 80;
+     int delay_ms = 175;
+     double unit_time = 260.0;
+
+     int white_threshold = 100;
+     int grey_threshold = 200;
+     int black_threshold = 600;
 };
 
 #endif

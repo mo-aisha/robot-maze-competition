@@ -1,18 +1,28 @@
+#include <RobotMaze.h>
+#include <MazeRunner.h>
+#include "Arduino.h"
 #include <OrangutanMotors.h>
+#include <OrangutanLCD.h>
+#include <OrangutanBuzzer.h>
 #include <OrangutanPushbuttons.h>
+#include <Pololu3pi.h>
+#include <PololuQTRSensors.h>
+#include <OrangutanAnalog.h>
+#include <OrangutanBuzzer.h>
 
+MazeRunner bot;
+
+char path[100] = "";
+unsigned char path_length = 0; // the length of the path
+
+// Initializes the 3pi, displays a welcome message, calibrates, and
+// plays the initial music.
 void setup() {
-  // put your setup code here, to run once:
-
+ bot.setupRobot();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-  unsigned long startTime = millis();
-  OrangutanMotors::setSpeeds(255,255);
-  while(millis()-startTime < 1000){
-    delay(5);
-  }
-  OrangutanMotors::setSpeeds(0,0);
-  while (1);
+// This function is called once.
+void loop()
+{
+  
 }
