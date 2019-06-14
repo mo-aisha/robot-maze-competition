@@ -1,0 +1,125 @@
+#include <MazeRunner.h>
+#include "Arduino.h"
+#include <OrangutanMotors.h>
+#include <OrangutanLCD.h>
+#include <OrangutanBuzzer.h>
+#include <OrangutanPushbuttons.h>
+#include <Pololu3pi.h>
+#include <PololuQTRSensors.h>
+#include <OrangutanAnalog.h>
+#include <OrangutanBuzzer.h>
+
+MazeRunner bot;
+
+static char* faces[4] = {"N", "E", "S", "W"};
+char face_history[100] = "N";
+unsigned char curFace = "N";
+
+unsigned int path_length = 0;
+unsigned char path[100] = "";
+
+// Initializes the 3pi, displays a welcome message, calibrates, and
+// plays the initial music.
+void setup() {
+  Serial.begin(9600);
+  bot.setupRobot();
+  loop();
+}
+
+// This function decides which way to turn during the learning phase of
+// maze solving.  It uses the variables found_left, found_straight, and
+// found_right, which indicate whether there is an exit in each of the
+// three directions, applying the "left hand on the wall" strategy.
+char select_turn(unsigned char found_left, unsigned char found_straight, unsigned char found_right)
+{
+  if (path_length > 3) {
+    if ((face_history[path_length] == 'N' && face_history[path_length - 1] == 'E'  && face_history[path_length - 2] == 'S'  && face_history[path_length - 3] == 'W') ||
+      (face_history[path_length] == 'E' && face_history[path_length - 1] == 'S'  && face_history[path_length - 2] == 'W'  && face_history[path_length - 3] == 'N') ||
+      (face_history[path_length] == 'S' && face_history[path_length - 1] == 'W'  && face_history[path_length - 2] == 'N'  && face_history[path_length - 3] == 'E') ||
+      (face_history[path_length] == 'W' && face_history[path_length - 1] == 'N'  && face_history[path_length - 2] == 'E'  && face_history[path_length - 3] == 'S') ||
+      (face_history[path_length] == 'N' && face_history[path_length - 1] == 'W'  && face_history[path_length - 2] == 'E'  && face_history[path_length - 3] == 'S') ||
+      (face_history[path_length] == 'W' && face_history[path_length - 1] == 'S'  && face_history[path_length - 2] == 'E'  && face_history[path_length - 3] == 'N') ||
+      (face_history[path_length] == 'S' && face_history[path_length - 1] == 'E'  && face_history[path_length - 2] == 'N'  && face_history[path_length - 3] == 'W') ||
+      (face_history[path_length] == 'E' && face_history[path_length - 1] == 'N'  && face_history[path_length - 2] == 'W'  && face_history[path_length - 3] == 'S'))
+      {
+        bot.stop();
+      }
+  }
+  
+  if(found_left) {
+    updateFace('L');
+    return 'L';
+    
+  } else if(found_straight) {
+    return 'S';
+    
+  } else if(found_right) {
+    updateFace('R');
+    return 'R';
+    
+  } else {
+    updateFace('B');
+    return 'B';
+    
+  }
+}
+
+void updateFace(unsigned char to_turn) {
+  int face_index = -1;
+  
+  for (int i=0; i<4; i++) {
+    if (face_index == faces[i]) {
+       face_index = i;
+       break;
+    }
+  }
+  
+  if (face_index != -1) {
+    int future_face = face_index;
+    
+    if (to_turn == 'L') {
+      future_face = face_index - 1;
+    } else if (to_turn == 'R') {
+      future_face = face_index + 1;
+    } else if (to_turn == 'B') {
+      future_face = face_index + 2;
+    }
+    
+    curFace = faces[future_face % 4];
+    face_history[path_length + 1] = faces[future_face];
+  }
+
+}
+
+// This function is called once.
+void loop() {
+  
+  while(1){
+    OrangutanLCD::print("Solved");
+    bot.straightUntilIntersection();
+
+    unsigned int directions[3];
+    bot.directionsAvailable(directions);
+
+    unsigned char dir = select_turn(directions[0], directions[1], directions[2]);
+    
+    if(!bot.isEndOfMaze()){
+      bot.turn(dir);
+    }
+    else{
+      bot.stop();
+      //OrangutanLCD::clear();
+      //OrangutanLCD::print("Solved");
+      delay(1000);
+      break;
+    }
+
+    path[path_length] = dir;
+    path_length ++;
+  
+  }
+  
+  while(1){
+    bot.stop();
+  }
+}
