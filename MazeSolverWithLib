@@ -11,10 +11,7 @@
 
 MazeRunner bot;
 
-static char* faces[4] = {"N", "E", "S", "W"};
-char face_history[100] = "N";
-unsigned char curFace = "N";
-
+unsigned int directions[3];
 unsigned int path_length = 0;
 unsigned char path[100] = "";
 
@@ -31,74 +28,79 @@ void setup() {
 // found_right, which indicate whether there is an exit in each of the
 // three directions, applying the "left hand on the wall" strategy.
 char select_turn(unsigned char found_left, unsigned char found_straight, unsigned char found_right)
-{
-  if (path_length > 3) {
-    if ((face_history[path_length] == 'N' && face_history[path_length - 1] == 'E'  && face_history[path_length - 2] == 'S'  && face_history[path_length - 3] == 'W') ||
-      (face_history[path_length] == 'E' && face_history[path_length - 1] == 'S'  && face_history[path_length - 2] == 'W'  && face_history[path_length - 3] == 'N') ||
-      (face_history[path_length] == 'S' && face_history[path_length - 1] == 'W'  && face_history[path_length - 2] == 'N'  && face_history[path_length - 3] == 'E') ||
-      (face_history[path_length] == 'W' && face_history[path_length - 1] == 'N'  && face_history[path_length - 2] == 'E'  && face_history[path_length - 3] == 'S') ||
-      (face_history[path_length] == 'N' && face_history[path_length - 1] == 'W'  && face_history[path_length - 2] == 'E'  && face_history[path_length - 3] == 'S') ||
-      (face_history[path_length] == 'W' && face_history[path_length - 1] == 'S'  && face_history[path_length - 2] == 'E'  && face_history[path_length - 3] == 'N') ||
-      (face_history[path_length] == 'S' && face_history[path_length - 1] == 'E'  && face_history[path_length - 2] == 'N'  && face_history[path_length - 3] == 'W') ||
-      (face_history[path_length] == 'E' && face_history[path_length - 1] == 'N'  && face_history[path_length - 2] == 'W'  && face_history[path_length - 3] == 'S'))
-      {
-        bot.stop();
-      }
-  }
-  
+{  
   if(found_left) {
-    updateFace('L');
     return 'L';
     
   } else if(found_straight) {
     return 'S';
     
   } else if(found_right) {
-    updateFace('R');
     return 'R';
     
   } else {
-    updateFace('B');
     return 'B';
-    
   }
 }
 
-void updateFace(unsigned char to_turn) {
-  int face_index = -1;
-  
-  for (int i=0; i<4; i++) {
-    if (face_index == faces[i]) {
-       face_index = i;
-       break;
+// Path simplification.  The strategy is that whenever we encounter a
+// sequence xBx, we can simplify it by cutting out the dead end.  For
+// example, LBL -> S, because a single S bypasses the dead end
+// represented by LBL.
+void simplify_path()
+{
+  // only simplify the path if the second-to-last turn was a 'B'
+  if(path_length < 3 || path[path_length-2] != 'B')
+  return;
+
+  int total_angle = 0;
+  int i;
+  for(i=1;i<=3;i++)
+  {
+    switch(path[path_length-i])
+    {
+      case 'R':
+      total_angle += 90;
+      break;
+      case 'L':
+      total_angle += 270;
+      break;
+      case 'B':
+      total_angle += 180;
+      break;
     }
-  }
-  
-  if (face_index != -1) {
-    int future_face = face_index;
-    
-    if (to_turn == 'L') {
-      future_face = face_index - 1;
-    } else if (to_turn == 'R') {
-      future_face = face_index + 1;
-    } else if (to_turn == 'B') {
-      future_face = face_index + 2;
-    }
-    
-    curFace = faces[future_face % 4];
-    face_history[path_length + 1] = faces[future_face];
   }
 
+  // Get the angle as a number between 0 and 360 degrees.
+  total_angle = total_angle % 360;
+
+  // Replace all of those turns with a single one.
+  switch(total_angle)
+  {
+    case 0:
+    path[path_length - 3] = 'S';
+    break;
+    case 90:
+    path[path_length - 3] = 'R';
+    break;
+    case 180:
+    path[path_length - 3] = 'B';
+    break;
+    case 270:
+    path[path_length - 3] = 'L';
+    break;
+  }
+
+  // The path is now two steps shorter.
+  path_length -= 2;
 }
 
 // This function is called once.
 void loop() {
   
   while(1){
-    OrangutanLCD::print("Solved");
     bot.straightUntilIntersection();
-
-    unsigned int directions[3];
+ 
     bot.directionsAvailable(directions);
 
     unsigned char dir = select_turn(directions[0], directions[1], directions[2]);
@@ -108,18 +110,40 @@ void loop() {
     }
     else{
       bot.stop();
-      //OrangutanLCD::clear();
-      //OrangutanLCD::print("Solved");
       delay(1000);
       break;
     }
 
     path[path_length] = dir;
     path_length ++;
-  
+
+    simplify_path();
   }
   
+  int  count = 0;
+  
+  OrangutanLCD::clear;
+  OrangutanLCD::print("Press B to re-run");
+  
+  while(!button_is_pressed(BUTTON_B)) {
+  }
+      
+  delay(1000);
+    
   while(1){
-    bot.stop();
+  
+    bot.straightUntilIntersection();
+    bot.directionsAvailable(directions);
+     
+    unsigned char dir = path[count];
+    
+    if(!bot.isEndOfMaze()){
+        bot.turn(dir);
+      } else {
+        bot.stop();
+        break;
+    }
+  
+    count = count + 1;
   }
 }
