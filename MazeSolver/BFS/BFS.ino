@@ -1,5 +1,4 @@
 #include "RobotMaze.h"
-#include "MazeNode.h"
 #include <MazeRunner.h>
 #include "Arduino.h"
 #include <OrangutanMotors.h>
