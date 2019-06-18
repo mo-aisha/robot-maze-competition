@@ -44,53 +44,23 @@ char select_turn(unsigned char found_left, unsigned char found_straight, unsigne
 // This function is called once.
 void loop()
 {
-      
-//  // Loop until we have solved the maze.
-//  while(1)
-//  {
-//    // FIRST MAINL OOP BODY
-//    bot.straightUntilIntersection();
-//    // Check for the ending spot.
-//    // If all three middle sensors are on dark black, we have
-//    // solved the maze.
-//  
-//    delay(800);
-//    unsigned int directions[3];
-//    bot.directionsAvailable(directions);
-//    delay(800);
-////      if (bot.isEndOfMaze()) {
-////      break;
-////    }
-//
-//    unsigned int location[2];
-//    bot.getCurrentLocation(location);
-//    delay(600);
-//    char directionss = bot.getCurrentDirection();
-//    delay(600);
-//    // Intersection identification is complete.
-//    // If the maze has been solved, we can follow the existing
-//    // path.  Otherwise, we need to learn the solution.
-//    unsigned char dir = select_turn(directions[0], directions[1], directions[2]);
-//    OrangutanLCD::clear();
-//    OrangutanLCD::print(location[0]);
-//     OrangutanLCD::print(" ");
-//     OrangutanLCD::print(location[1]);
-//     OrangutanLCD::print(" ");
-//     OrangutanLCD::print(directionss);
-//    delay(800);
-//    // Make the turn indicated by the path.
-//    bot.turn(dir);
-//    delay(800);
-//    // Store the intersection in the path variable.
-//    path[path_length] = dir;
-//    path_length ++;
-//
-//    // Display the path on the LCD.
-//    // display_path();
-//  }
-//  // Solved the maze!
+  while (1)
+  {
+    // Beep to show that we solved the maze.
+    OrangutanMotors::setSpeeds(0, 0);
+    OrangutanBuzzer::play(">>a32");
 
-  while (1) {
-     OrangutanLCD::print(" ");
+    // Wait for the user to press a button, while displaying
+    // the solution.
+    while (!OrangutanPushbuttons::isPressed(BUTTON_B))
+    {
+        OrangutanLCD::clear();
+        OrangutanLCD::print("Solved!");
+        delay(30);
+    }
+    while (OrangutanPushbuttons::isPressed(BUTTON_B));
+
+    delay(1000);
+    bot.solveMaze();
   }
 }
