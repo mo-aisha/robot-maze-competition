@@ -42,31 +42,28 @@ char select_turn(unsigned char found_left, unsigned char found_straight, unsigne
 // This function is called once.
 void loop()
 {
-      
   // Loop until we have solved the maze.
   while(1)
   {
-    // FIRST MAINL OOP BODY
-    unsigned int x= bot.straightUntilIntersection();
+    // FIRST MAIN LOOP BODY
+    bot.straightUntilIntersection();
     
     // Check for the ending spot.
     // If all three middle sensors are on dark black, we have
     // solved the maze.
-  
+    if (bot.isEndOfMaze()) {
+      break;
+    }
     
     unsigned int directions[3];
     bot.directionsAvailable(directions);
-
-      if (bot.isEndOfMaze()) {
-      break;
-    }
 
     // Intersection identification is complete.
     // If the maze has been solved, we can follow the existing
     // path.  Otherwise, we need to learn the solution.
     unsigned char dir = select_turn(directions[0], directions[1], directions[2]);
     OrangutanLCD::clear();
-    OrangutanLCD::print(x );
+    OrangutanLCD::print(dir );
     delay(800);
     // Make the turn indicated by the path.
     bot.turn(dir);
