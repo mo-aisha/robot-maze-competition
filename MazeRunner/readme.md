@@ -49,3 +49,7 @@ Will return 1 if it is the end of the maze, 0 otherwise
 
 ### void stop()
 Stops the robot
+
+### void setSpeedsFor(int leftMotor, int rightMotor, int delay_ms)
+Sets the speed for the left and right motor, as well as the delay.
+
