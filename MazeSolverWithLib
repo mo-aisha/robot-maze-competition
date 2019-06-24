@@ -9,18 +9,27 @@
 #include <OrangutanAnalog.h>
 #include <OrangutanBuzzer.h>
 
-MazeRunner bot;
+/*
+  __  __                 ____                              
+ |  \/  | __ _ _______  |  _ \ _   _ _ __  _ __   ___ _ __ 
+ | |\/| |/ _` |_  / _ \ | |_) | | | | '_ \| '_ \ / _ \ '__|
+ | |  | | (_| |/ /  __/ |  _ <| |_| | | | | | | |  __/ |   
+ |_|  |_|\__,_/___\___| |_| \_\\__,_|_| |_|_| |_|\___|_|   
+
+ Event created by Aisha Animashaun, Andrew Gillard, Georgia Isaac, Jamie Tizzard and Manav Gupta
+
+*/
+
+MazeRunner bot(70, 80, 175, 260.0, 100, 200, 600);
 
 unsigned int directions[3];
-unsigned int path_length = 0;
-unsigned char path[100] = "";
+char path[100] = "";
+unsigned char path_length = 0; // the length of the path
 
 // Initializes the 3pi, displays a welcome message, calibrates, and
 // plays the initial music.
 void setup() {
-  Serial.begin(9600);
-  bot.setupRobot();
-  loop();
+ bot.setupRobot();
 }
 
 // This function decides which way to turn during the learning phase of
@@ -28,19 +37,18 @@ void setup() {
 // found_right, which indicate whether there is an exit in each of the
 // three directions, applying the "left hand on the wall" strategy.
 char select_turn(unsigned char found_left, unsigned char found_straight, unsigned char found_right)
-{  
-  if(found_left) {
-    return 'L';
-    
-  } else if(found_straight) {
-    return 'S';
-    
-  } else if(found_right) {
-    return 'R';
-    
-  } else {
-    return 'B';
-  }
+{
+  // Make a decision about how to turn.  The following code
+  // implements a left-hand-on-the-wall strategy, where we always
+  // turn as far to the left as possible.
+  if(found_left)
+  return 'L';
+  else if(found_straight)
+  return 'S';
+  else if(found_right)
+  return 'R';
+  else
+  return 'B';
 }
 
 // Path simplification.  The strategy is that whenever we encounter a
@@ -100,7 +108,6 @@ void loop() {
   
   while(1){
     bot.straightUntilIntersection();
- 
     bot.directionsAvailable(directions);
 
     unsigned char dir = select_turn(directions[0], directions[1], directions[2]);
@@ -120,7 +127,7 @@ void loop() {
     simplify_path();
   }
   
-  int  count = 0;
+  int count = 0;
   
   OrangutanLCD::clear;
   OrangutanLCD::print("Press B to re-run");
